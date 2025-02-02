@@ -3,16 +3,29 @@ from tensorflow.keras.models import load_model
 from keras.preprocessing.image import load_img, img_to_array
 import numpy as np
 import os
+import gzip
+import shutil
 
 # Create Flask app
 app = Flask(__name__)
 
+# Model paths
+GZ_MODEL_PATH = "models/model.h5.gz"
+H5_MODEL_PATH = "models/model.h5"
+
+# Extract model if necessary
+if not os.path.exists(H5_MODEL_PATH) and os.path.exists(GZ_MODEL_PATH):
+    print("Extracting model.h5 from model.h5.gz...")
+    with gzip.open(GZ_MODEL_PATH, 'rb') as f_in:
+        with open(H5_MODEL_PATH, 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+    print("Extraction completed.")
+
 # Load the model
-model = load_model("models/model.h5")
+model = load_model(H5_MODEL_PATH)
 
 # Class labels
 class_labels = ['pituitary', 'glioma', 'notumor', 'meningioma']
-
 
 # Define the upload folder
 UPLOAD_FOLDER = "./uploads"
