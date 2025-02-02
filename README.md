@@ -1,4 +1,5 @@
 ﻿# mri_tumor_detector
+ Live Preview: https://mri-tumor-detector-6.onrender.com/
 
 # Working Screenshots 
 ![Screenshot 2025-02-02 112835](https://github.com/user-attachments/assets/945518a0-166e-43bf-bd40-00c27a9d204b)
